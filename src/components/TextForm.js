@@ -54,6 +54,7 @@ export default function TextForm(props) {
         var a = document.getElementById('myBox');
         a.select();
         navigator.clipboard.writeText(a.value); 
+        document.getSelection().removeAllRanges();
         props.showAlert('Text has been handled','success');
     }
     const handleExtraSpaces = () => {
@@ -68,22 +69,22 @@ export default function TextForm(props) {
    <div className="container my-3" style ={{color :props.mode ==='light'?'black':'white'}}>
    <h2>{props.heading}</h2>
    <textarea className="form-control" id="myBox" rows="8" style={{backgroundColor:props.mode ==='light'?'white':'grey',color:props.mode ==='light'?'black':'white'}} value={text} onChange={handleUpChange}></textarea>
-   <button className="btn btn-primary my-2" onClick = {handleUpClick}>Convert to UpperCase</button>
-   <button className="btn btn-success my-2 mx-1" onClick = {handleDownClick}>Convert to LowerCase</button>
-   <button className="btn btn-danger my-2 mx-1" onClick = {handleClear}>Clear text</button>
-   <button className="btn btn-info my-2 mx-1" onClick = {handleSpaces}>Handle Spaces</button>
-   <button className="btn btn-secondary my-2 mx-1" onClick = {highlightVowels}>Highlight Vowels</button>
-   <button className="btn btn-success my-2 mx-1" onClick = {handleCopy}>Copy text</button>
-   <button className="btn btn-info my-2 mx-1" onClick = {handleExtraSpaces}>Handle Extra Spaces</button>
+   <button className="btn btn-primary my-2" onClick = {handleUpClick} disabled = { text.length == 0}>Convert to UpperCase</button>
+   <button className="btn btn-success my-2 mx-1" onClick = {handleDownClick} disabled = { text.length == 0}>Convert to LowerCase</button>
+   <button className="btn btn-danger my-2 mx-1" onClick = {handleClear} disabled = { text.length == 0}>Clear text</button>
+   <button className="btn btn-info my-2 mx-1" onClick = {handleSpaces} disabled = { text.length == 0}>Handle Spaces</button>
+   <button className="btn btn-secondary my-2 mx-1" onClick = {highlightVowels} disabled = { text.length == 0}>Highlight Vowels</button>
+   <button className="btn btn-success my-2 mx-1" onClick = {handleCopy} disabled = { text.length == 0}>Copy text</button>
+   <button className="btn btn-info my-2 mx-1" onClick = {handleExtraSpaces} disabled = { text.length == 0}>Handle Extra Spaces</button>
 
    </div>
    <div className='container my-2' style ={{color :props.mode ==='light'?'black':'white'}}>
    <b><h2>Summary</h2></b>
    <b><p>Number Of Characters = {text.length}</p></b>
-   <b><p>Number Of Words = {text.split(" ").filter((element)=>{return element.length !== 0}).length}</p></b>
+   <b><p>Number Of Words = {text.split(" ").filter((element)=> { return element.length != 0 }).length}</p></b>
    <b><h2>Preview</h2></b>
    <b><p>{text}</p></b>
-   <b><p>{0.008 * text.split(" ").filter((element)=>{return element.length !== 0}).length} Minutes read</p></b>
+   <b><p>{0.008 * text.split(" ").filter((element)=> { return element.length != 0 }).length} Minutes read</p></b>
    </div>
    </>
   )
